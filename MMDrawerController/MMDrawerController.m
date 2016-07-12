@@ -726,6 +726,17 @@ static NSString* MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 	[super viewWillAppear:animated];
 	[self.centerViewController beginAppearanceTransition:YES animated:animated];
 
+    CGFloat width;
+    CGFloat window1 = [[UIApplication sharedApplication] delegate].window.frame.size.width;
+    CGFloat window2 = [[UIApplication sharedApplication] delegate].window.frame.size.height;
+    
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+        width = (window1>window2) ? window1 : window2;
+    } else {
+        width = (window2>window1) ? window1 : window2;
+    }
+    [self setMaximumLeftDrawerWidth:width];
+    
 	if (self.openSide == MMDrawerSideLeft) {
 		[self.leftDrawerViewController beginAppearanceTransition:YES animated:animated];
 	} else if (self.openSide == MMDrawerSideRight) {
